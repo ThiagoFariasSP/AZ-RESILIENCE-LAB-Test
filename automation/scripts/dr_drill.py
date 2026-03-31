@@ -1,28 +1,49 @@
-from automation.src.config import load_settings
-from automation.src.runbook import Runbook
-from automation.src.report import write_json_report
+"""
+AZ-RESILIENCE-LAB-Test
+Failure Simulation Script
+
+Purpose:
+- Simulate an application failure
+- Act as the trigger point for a Disaster Recovery drill
+- Record when the failure occurred
+"""
+
+from datetime import datetime, timezone
+import sys
+
+
+def simulate_application_failure():
+    """
+    Simulates a critical application failure.
+    No Azure resources are touched.
+    This represents the moment an incident starts.
+    """
+
+    failure_time = datetime.now(timezone.utc)
+
+    print("=== FAILURE SIMULATION STARTED ===")
+    print("Simulating critical application failure...")
+    print(f"Failure time (UTC): {failure_time.isoformat()}")
+
+    # Logical failure signal
+    failure_detected = True
+
+    if not failure_detected:
+        print("Failure simulation failed to trigger.")
+        sys.exit(1)
+
+    print("Failure successfully simulated.")
+    print("This would trigger the Disaster Recovery process.")
+
+    return failure_time
+
 
 def main():
-    settings = load_settings()  # requires settings.json
-    rb = Runbook()
+    print("Starting DR drill - failure simulation phase")
+    simulate_application_failure()
+    print("Failure simulation phase completed")
 
-    rb.mark("dr_drill_start", {"project": settings.get("project")})
-    rb.mark("config_loaded", {"regions": settings.get("regions")})
-
-    # Placeholder steps (no Azure calls yet)
-    rb.mark("simulate_failover_trigger")
-    rb.mark("simulate_validation_checks")
-    rb.mark("dr_drill_end")
-
-    report = {
-        "project": settings.get("project"),
-        "regions": settings.get("regions"),
-        "targets": settings.get("targets"),
-        "events": rb.events
-    }
-
-    out = write_json_report(report, "reports/dr_drill_report.json")
-    print(f"Report written: {out}")
 
 if __name__ == "__main__":
     main()
+``
