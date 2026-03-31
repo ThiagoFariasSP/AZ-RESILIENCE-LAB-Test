@@ -109,7 +109,6 @@ The next phase focuses on **real Python implementation**, starting with:
 - Azure Site Recovery failover
 - Timestamp capture
 - Validation hooks
-``
 
 
 
