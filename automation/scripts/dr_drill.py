@@ -1,47 +1,40 @@
 """
 AZ-RESILIENCE-LAB-Test
-Failure Simulation Script
+DR Drill Orchestrator
 
 Purpose:
-- Simulate an application failure
-- Act as the trigger point for a Disaster Recovery drill
-- Record when the failure occurred
+- Orchestrate a DR Drill workflow (step-by-step runbook)
+- Today: Failure simulation only
+- Next: Add validation + reporting + real Azure actions (later phases)
+
+This aligns with the project scope: "Automação de testes de DR (DR Drill)". 
 """
 
 from datetime import datetime, timezone
-import sys
+from simulate_failure import simulate_application_failure
 
 
-def simulate_application_failure():
-    """
-    Simulates a critical application failure.
-    No Azure resources are touched.
-    This represents the moment an incident starts.
-    """
-
-    failure_time = datetime.now(timezone.utc)
-
-    print("=== FAILURE SIMULATION STARTED ===")
-    print("Simulating critical application failure...")
-    print(f"Failure time (UTC): {failure_time.isoformat()}")
-
-    # Logical failure signal
-    failure_detected = True
-
-    if not failure_detected:
-        print("Failure simulation failed to trigger.")
-        sys.exit(1)
-
-    print("Failure successfully simulated.")
-    print("This would trigger the Disaster Recovery process.")
-
-    return failure_time
+def utc_now():
+    return datetime.now(timezone.utc).isoformat()
 
 
 def main():
-    print("Starting DR drill - failure simulation phase")
-    simulate_application_failure()
-    print("Failure simulation phase completed")
+    print("=== DR DRILL START ===")
+    drill_start = utc_now()
+    print(f"DR Drill start time (UTC): {drill_start}")
+
+    # Step 1 - Trigger failure (logical)
+    failure_time = simulate_application_failure()
+
+    # Future steps (not implemented yet, by design)
+    print("=== NEXT STEPS (PLACEHOLDERS) ===")
+    print("- Post-failover validation (later)")
+    print("- RTO/RPO measurement (later)")
+    print("- Reporting (later)")
+
+    drill_end = utc_now()
+    print(f"DR Drill end time (UTC): {drill_end}")
+    print("=== DR DRILL END ===")
 
 
 if __name__ == "__main__":
