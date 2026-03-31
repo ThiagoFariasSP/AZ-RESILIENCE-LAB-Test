@@ -1,0 +1,12 @@
+{
+  "project": "AZ-RESILIENCE-LAB-Test",
+  "regions": {
+    "primary": "brazilsouth",
+    "secondary": "brazilsoutheast"
+  },
+  "targets": {
+    "frontend": { "rto_minutes": 5, "rpo_minutes": 0 },
+    "api": { "rto_minutes": 10, "rpo_minutes": 5 },
+    "database": { "rto_minutes": 15, "rpo_minutes": 15 }
+  }
+}
